@@ -13,6 +13,14 @@ La herramienta permite seleccionar archivos, aplicar distintos niveles de limpie
 - Ejecución local sin necesidad de instalación adicional para el usuario final.
 - Distribución portable en Windows.
 
+## Aviso para Windows
+
+En algunos sistemas, Windows puede mostrar una advertencia de **Microsoft Defender SmartScreen** al ejecutar Zyrex por primera vez. Esto suele ocurrir cuando una aplicación no ha acumulado suficiente reputación de descarga o no está firmada digitalmente.
+
+Si has obtenido Zyrex desde la fuente oficial del proyecto, puedes continuar desde la opción **Más información** → **Ejecutar de todas formas**.
+
+Se recomienda verificar siempre que la descarga provenga exclusivamente del repositorio oficial o de sus Releases.
+
 ## Modos de sanitización
 
 ### Stealth Mode
