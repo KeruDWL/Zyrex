@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zyrex | Sanitización de metadatos</title>
+    <link rel="icon" href="logo.ico" />
+    <script type="text/javascript" src="/eel.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="app-shell" id="appShell">
+        <div class="background-orb orb-a"></div>
+        <div class="background-orb orb-b"></div>
+        <div class="background-grid"></div>
+
+        <div class="drawer-scrim" id="drawerScrim"></div>
+
+        <aside class="summary-drawer" id="summaryDrawer" aria-hidden="true">
+            <div class="drawer-header">
+                <div>
+                    <p class="panel-kicker">Resumen</p>
+                    <h3>Estado del sistema</h3>
+                </div>
+
+                <button
+                    class="icon-ghost-btn"
+                    id="summaryCloseBtn"
+                    type="button"
+                    aria-label="Cerrar panel de resumen"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="drawer-body">
+                <div class="drawer-grid">
+                    <article class="drawer-card">
+                        <span class="drawer-label">Archivos cargados</span>
+                        <strong id="drawerSelectedCount">0</strong>
+                        <small>Listos para sanitización</small>
+                    </article>
+
+                    <article class="drawer-card">
+                        <span class="drawer-label">Modo activo</span>
+                        <strong id="drawerModeLabel">Ghost Mode</strong>
+                        <small id="drawerModeHint">Limpieza total de metadatos</small>
+                    </article>
+
+                    <article class="drawer-card">
+                        <span class="drawer-label">Compatibilidad</span>
+                        <strong>JPG · PNG · PDF · DOCX</strong>
+                        <small>Procesamiento vía ExifTool</small>
+                    </article>
+
+                    <article class="drawer-card">
+                        <span class="drawer-label">Flujo</span>
+                        <strong>Seleccionar → Configurar → Ejecutar</strong>
+                        <small>Operación compacta desde una sola ventana</small>
+                    </article>
+                </div>
+
+                <div class="drawer-footer">
+                    <div class="drawer-footer-brand">
+                        <img src="logo-dwl.png" alt="Logo de KeruDWL" class="drawer-footer-logo" />
+                        <span>©2026 KeruDWL | Ciberseguridad y Hacking Ético</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <header class="topbar">
+            <div class="brand-block">
+                <div class="brand-mark">
+                    <img src="logo.png" alt="Logo de Zyrex" class="brand-mark-image" />
+                </div>
+
+                <div class="brand-copy">
+                    <p class="eyebrow">KERUDWL | Ciberseguridad y hacking ético</p>
+                    <h1>Zyrex</h1>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="status-chip online">
+                    <span class="status-dot"></span>
+                    Motor listo
+                </div>
+
+                <div class="version-pill">v2.0</div>
+
+                <button
+                    class="menu-btn"
+                    id="summaryToggleBtn"
+                    type="button"
+                    aria-label="Abrir resumen"
+                    aria-controls="summaryDrawer"
+                    aria-expanded="false"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <section class="overview-panel panel glass-panel">
+                <div class="overview-copy">
+                    <p class="section-tag">Control centralizado</p>
+                    <h2>Sanitización de metadatos</h2>
+                    <p class="overview-text">
+                        Selecciona archivos, configura la política de limpieza y ejecuta el proceso de sanitización.
+                    </p>
+                </div>
+            </section>
+
+            <section class="workspace-panel panel glass-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">Operación</p>
+                        <h3>Centro de control</h3>
+                    </div>
+
+                    <div class="workspace-switcher">
+                        <button class="switch-btn active" type="button" data-slide="0">Archivos</button>
+                        <button class="switch-btn" type="button" data-slide="1">Modos</button>
+                    </div>
+                </div>
+
+                <div class="workspace-viewport">
+                    <div class="workspace-track" id="workspaceTrack">
+                        <section class="workspace-slide files-slide">
+                            <div class="section-head-inline">
+                                <div>
+                                    <p class="panel-kicker">Selección</p>
+                                    <h3>Archivos objetivo</h3>
+                                </div>
+                            </div>
+
+                            <div class="file-actions">
+                                <button class="primary-outline-btn" type="button" id="selectFilesBtn">
+                                    <span class="btn-icon">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M12 5v14M5 12h14"></path>
+                                        </svg>
+                                    </span>
+                                    Añadir archivos
+                                </button>
+
+                                <button class="ghost-btn" id="clearFilesBtn" type="button">Limpiar</button>
+                            </div>
+
+                            <div class="dropzone-look compact-dropzone">
+                                <p>La selección se realiza con el explorador nativo.</p>
+                                <small>Se conservan rutas completas para el procesamiento del backend.</small>
+                            </div>
+
+                            <div id="fileList" class="file-list empty-state">
+                                <div class="empty-visual">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Zm0 0v5h5"></path>
+                                    </svg>
+                                </div>
+                                <p>No hay archivos seleccionados todavía.</p>
+                            </div>
+                        </section>
+
+                        <section class="workspace-slide policy-slide">
+                            <div class="section-head-inline">
+                                <div>
+                                    <p class="panel-kicker">Configuración</p>
+                                    <h3>Modos de sanitización</h3>
+                                </div>
+                            </div>
+
+                            <div class="policy-scroll">
+                                <div class="policy-options" id="policyOptions">
+                                    <label class="policy-card" data-mode="1">
+                                        <input type="radio" name="level" value="1" />
+                                        <span class="policy-card-top">
+                                            <span class="policy-title">Stealth Mode</span>
+                                            <span class="policy-badge blue">Nivel 1</span>
+                                        </span>
+                                        <span class="policy-desc">
+                                            Elimina GPS, fabricante, software y huellas básicas del origen.
+                                        </span>
+                                    </label>
+
+                                    <label class="policy-card selected" data-mode="2">
+                                        <input type="radio" name="level" value="2" checked />
+                                        <span class="policy-card-top">
+                                            <span class="policy-title">Ghost Mode</span>
+                                            <span class="policy-badge violet">Nivel 2</span>
+                                        </span>
+                                        <span class="policy-desc">
+                                            Limpieza completa de metadatos y normalización de fechas.
+                                        </span>
+                                    </label>
+
+                                    <label class="policy-card" data-mode="3">
+                                        <input type="radio" name="level" value="3" />
+                                        <span class="policy-card-top">
+                                            <span class="policy-title">Forge Mode</span>
+                                            <span class="policy-badge pink">Nivel 3</span>
+                                        </span>
+                                        <span class="policy-desc">
+                                            Reescribe autor y descripción para dejar atributos personalizados.
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div id="forgeInputs" class="forge-form hidden">
+                                    <div class="field-block">
+                                        <label for="autor">Autor</label>
+                                        <input type="text" id="autor" placeholder="Autor del documento" />
+                                    </div>
+
+                                    <div class="field-block">
+                                        <label for="desc">Descripción</label>
+                                        <input type="text" id="desc" placeholder="Descripción del documento" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-row">
+                                <button class="run-btn" type="button" id="runBtn">
+                                    <span class="btn-icon solid">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M8 5v14l11-7z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="run-btn-label" id="runBtnLabel">Ejecutar sanitización</span>
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+
+            <section class="terminal-panel panel glass-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">Actividad</p>
+                        <h3>Registros de consola</h3>
+                    </div>
+
+                    <button class="ghost-btn" id="clearLogBtn" type="button">Vaciar log</button>
+                </div>
+
+                <div id="terminal" class="terminal-box"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
