@@ -45,8 +45,7 @@ La aplicación cuenta con una estructura de trabajo dividida en tres áreas prin
 
 ## Capturas
 
-Puedes agregar aquí capturas del software para mostrar la interfaz.
+Zyrex | Sanitización de metadatos
 
 ```md
 ![Vista principal](ruta/a/tu/captura1.png)
-![Panel de modos](ruta/a/tu/captura2.png)
