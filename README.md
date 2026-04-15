@@ -47,4 +47,4 @@ La aplicación cuenta con una estructura de trabajo dividida en tres áreas prin
 
 Zyrex | Sanitización de metadatos
 
-![Vista principal](Zyrex/Zyrex.png)
+![Vista principal](assets/Zyrex.png)
